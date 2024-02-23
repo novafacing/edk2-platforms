@@ -22,7 +22,7 @@ NumBlocks     = $(FW_BLOCKS)
 
 !include VarStore.fdf.inc
 
-$(VARS_SIZE)|0x00002000
+$(VARS_LIVE_SIZE)|0x00002000
 gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase|gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize
 #NV_FTW_WORKING
 DATA = {
@@ -36,11 +36,11 @@ DATA = {
   0xE0, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 }
 
-0x00040000|0x00040000
+0x00042000|$(VARS_SPARE_SIZE)
 gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase|gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize
 #NV_FTW_SPARE
 
-0x00080000|0x0016C000
+$(VARS_SIZE)|$(FVMAIN_SIZE)
 FV = FVMAIN_COMPACT
 
 $(SECFV_OFFSET)|$(SECFV_SIZE)
@@ -66,18 +66,18 @@ ErasePolarity = 1
 BlockSize     = $(BLOCK_SIZE)
 NumBlocks     = $(CODE_BLOCKS)
 
-0x00000000|0x0016C000
+0x00000000|$(FVMAIN_SIZE)
 FV = FVMAIN_COMPACT
 
-0x0016C000|$(SECFV_SIZE)
+$(FVMAIN_SIZE)|$(SECFV_SIZE)
 FV = FvTempMemorySilicon
 
 [FD.MEMFD]
 BaseAddress   = $(MEMFD_BASE_ADDRESS)
-Size          = 0xB00000
+Size          = 0x3300000
 ErasePolarity = 1
 BlockSize     = 0x10000
-NumBlocks     = 0xB0
+NumBlocks     = 0x330
 
 0x006000|0x001000
 gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsLockBoxStorageBase|gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsLockBoxStorageSize
@@ -92,7 +92,7 @@ gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsSecPeiTempRamBase|gSimicsOpenBoardPkg
 gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsPeiMemFvBase|gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsPeiMemFvSize
 FV = FvPreMemory
 
-0x100000|0xA00000
+0x100000|0x3200000
 gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsDxeMemFvBase|gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsDxeMemFvSize
 FV = DXEFV
 
