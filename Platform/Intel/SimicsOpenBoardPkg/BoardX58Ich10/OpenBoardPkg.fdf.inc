@@ -15,18 +15,20 @@
 #
 
 DEFINE BLOCK_SIZE        = 0x1000
-DEFINE VARS_SIZE         = 0x3e000
-DEFINE VARS_BLOCKS       = 0x3e
+DEFINE VARS_SIZE         = 0x84000
+DEFINE VARS_BLOCKS       = 0x84
+DEFINE VARS_LIVE_SIZE    = 0x40000
+DEFINE VARS_SPARE_SIZE   = 0x42000
 
-DEFINE FW_BASE_ADDRESS   = 0xFFE00000
-DEFINE FW_SIZE           = 0x00200000
-DEFINE FW_BLOCKS         = 0x200
-DEFINE CODE_BASE_ADDRESS = 0xFFE80000
-DEFINE CODE_SIZE         = 0x00180000
-DEFINE CODE_BLOCKS       = 0x180
-DEFINE FVMAIN_SIZE       = 0x0016C000
-DEFINE SECFV_OFFSET      = 0x001EC000
-DEFINE SECFV_SIZE        = 0x14000
+DEFINE FW_BASE_ADDRESS   = 0xFF000000
+DEFINE FW_SIZE           = 0x01000000
+DEFINE FW_BLOCKS         = 0x1000
+DEFINE CODE_BASE_ADDRESS = 0xFF084000
+DEFINE CODE_SIZE         = 0x00F7C000
+DEFINE CODE_BLOCKS       = 0x0F7C
+DEFINE FVMAIN_SIZE       = 0x0097C000
+DEFINE SECFV_OFFSET      = 0x00A00000
+DEFINE SECFV_SIZE        = 0x600000
 
 
 SET gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsFdBaseAddress     = $(FW_BASE_ADDRESS)
@@ -34,7 +36,7 @@ SET gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsFirmwareFdSize    = $(FW_SIZE)
 SET gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsFirmwareBlockSize = $(BLOCK_SIZE)
 
 SET gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsFlashNvStorageVariableBase = $(FW_BASE_ADDRESS)
-SET gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize = 0xE000
+SET gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize = $(VARS_LIVE_SIZE)
 
 SET gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsFlashNvStorageEventLogBase = gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsFlashNvStorageVariableBase + gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
 SET gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsFlashNvStorageEventLogSize = $(BLOCK_SIZE)
@@ -43,7 +45,7 @@ SET gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsFlashNvStorageFtwWorkingBase = gS
 SET gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize = $(BLOCK_SIZE)
 
 SET gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsFlashNvStorageFtwSpareBase = gSimicsOpenBoardPkgTokenSpaceGuid.PcdSimicsFlashNvStorageFtwWorkingBase + gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize
-SET gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize = 0x10000
+SET gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize = $(VARS_SPARE_SIZE)
 
 SET gIntelSiliconPkgTokenSpaceGuid.PcdBiosAreaBaseAddress = $(FW_BASE_ADDRESS)
 SET gIntelSiliconPkgTokenSpaceGuid.PcdBiosSize = $(FW_SIZE)

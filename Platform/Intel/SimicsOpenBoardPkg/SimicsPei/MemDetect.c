@@ -25,6 +25,7 @@
 #include <Library/CmosAccessLib.h>
 #include <SimicsPlatforms.h>
 #include <Guid/SmramMemoryReserve.h>
+#include <Library/Asan.h>
 
 #include <CmosMap.h>
 
@@ -489,6 +490,10 @@ InitializeRamRegions (
   VOID
   )
 {
+  UINT64                      LowerMemorySize;
+  UINT64                      AsanShadowMemorySize;
+  UINT64                      AsanShadowMemoryStart;
+  ASAN_INFO                   AsanInfo;
   QemuInitializeRam ();
 
   if (mS3Supported && mBootMode != BOOT_ON_S3_RESUME) {
@@ -558,6 +563,36 @@ InitializeRamRegions (
         GetSystemMemorySizeBelow4gb() - TsegSize,
         TsegSize,
         EfiReservedMemoryType
+        );
+      
+      // ASAN
+      LowerMemorySize = GetSystemMemorySizeBelow4gb ();
+      
+      AsanShadowMemorySize = LowerMemorySize>>3;
+      AsanShadowMemoryStart = 0x5000000;
+
+      DEBUG ((EFI_D_INFO, "LowerMemorySize = 0x%x\n", LowerMemorySize));
+      DEBUG ((EFI_D_INFO, "AsanShadowMemoryStart = 0x%x\n", AsanShadowMemoryStart));
+      DEBUG ((EFI_D_INFO, "AsanShadowMemorySize = 0x%x\n", AsanShadowMemorySize));
+      ZeroMem ((VOID *) (UINTN) AsanShadowMemoryStart, AsanShadowMemorySize);
+
+      BuildMemoryAllocationHob (
+        AsanShadowMemoryStart,
+        AsanShadowMemorySize,
+        EfiRuntimeServicesData
+        );
+
+      //
+      // Build HOB for AsanInfo
+      //
+      AsanInfo.AsanShadowMemorySize = AsanShadowMemorySize;
+      AsanInfo.AsanShadowMemoryStart = AsanShadowMemoryStart;
+      AsanInfo.AsanInited = 1;
+      AsanInfo.AsanActivated = 1;
+      BuildGuidDataHob (
+        &gAsanInfoGuid,
+        &AsanInfo,
+        sizeof (ASAN_INFO)
         );
     }
   }

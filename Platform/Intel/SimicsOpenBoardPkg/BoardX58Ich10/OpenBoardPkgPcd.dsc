@@ -123,7 +123,7 @@
   # DEBUG_VERBOSE   0x00400000  // Detailed debug messages that may
   #                             // significantly impact boot performance
   # DEBUG_ERROR     0x80000000  // Error
-  gEfiMdePkgTokenSpaceGuid.PcdDebugPrintErrorLevel|0x8000004F
+  gEfiMdePkgTokenSpaceGuid.PcdDebugPrintErrorLevel|0x800001CF
   gEfiMdePkgTokenSpaceGuid.PcdDebugPropertyMask|0x2F
   gEfiMdePkgTokenSpaceGuid.PcdFSBClock|133333333
   gEfiMdePkgTokenSpaceGuid.PcdMaximumGuidedExtractHandler|0x10
@@ -149,7 +149,8 @@
   gUefiCpuPkgTokenSpaceGuid.PcdCpuInitIpiDelayInMicroSeconds|10
   gUefiCpuPkgTokenSpaceGuid.PcdCpuMaxLogicalProcessorNumber|512
   gUefiCpuPkgTokenSpaceGuid.PcdCpuSmmApSyncTimeout|10000
-  gUefiCpuPkgTokenSpaceGuid.PcdCpuSmmStackSize|0x4000
+  gUefiCpuPkgTokenSpaceGuid.PcdCpuSmmStackSize|0x8000
+  gEfiMdeModulePkgTokenSpaceGuid.PcdImageProtectionPolicy|0x0
 
   ######################################
   # Platform Configuration

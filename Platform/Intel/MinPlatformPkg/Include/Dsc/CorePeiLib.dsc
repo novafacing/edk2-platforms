@@ -21,6 +21,7 @@
 !endif
 
 [LibraryClasses.common.SEC, LibraryClasses.common.PEI_CORE, LibraryClasses.common.PEIM]
+  BaseMemoryLib|MdePkg/Library/BaseMemoryLibRepStr/BaseMemoryLibRepStr.inf
   S3BootScriptLib|MdePkg/Library/BaseS3BootScriptLibNull/BaseS3BootScriptLibNull.inf
   PcdLib|MdePkg/Library/PeiPcdLib/PeiPcdLib.inf
   HobLib|MdePkg/Library/PeiHobLib/PeiHobLib.inf
