@@ -54,6 +54,7 @@
 !if $(TARGET) != RELEASE
   DebugLib|MdePkg/Library/BaseDebugLibSerialPort/BaseDebugLibSerialPort.inf
 !endif
+  AsanLib|MdeModulePkg/Library/AsanLib/AsanLib.inf
 
 [LibraryClasses.common.DXE_CORE]
   HobLib|MdePkg/Library/DxeCoreHobLib/DxeCoreHobLib.inf
@@ -67,8 +68,13 @@
 [LibraryClasses.common.DXE_DRIVER, LibraryClasses.common.UEFI_DRIVER]
   Tpm2DeviceLib|SecurityPkg/Library/Tpm2DeviceLibTcg2/Tpm2DeviceLibTcg2.inf
 
+[LibraryClasses.common.UEFI_DRIVER]
+  AsanLib|MdeModulePkg/Library/AsanLib/AsanLib.inf
+  NULL|MdeModulePkg/Library/AsanLib/AsanLib.inf
+
 [LibraryClasses.common.DXE_DRIVER]
   TpmPlatformHierarchyLib|SecurityPkg/Library/PeiDxeTpmPlatformHierarchyLib/PeiDxeTpmPlatformHierarchyLib.inf
+  NULL|MdeModulePkg/Library/AsanLib/AsanLib.inf
 
 [LibraryClasses.common.DXE_SMM_DRIVER]
   SmmServicesTableLib|MdePkg/Library/SmmServicesTableLib/SmmServicesTableLib.inf
@@ -78,6 +84,7 @@
   LockBoxLib|MdeModulePkg/Library/SmmLockBoxLib/SmmLockBoxSmmLib.inf
   SmmMemLib|MdePkg/Library/SmmMemLib/SmmMemLib.inf
   SmmPeriodicSmiLib|MdePkg/Library/SmmPeriodicSmiLib/SmmPeriodicSmiLib.inf
+  NULL|MdeModulePkg/Library/AsanLib/AsanLib.inf
 
 !if gMinPlatformPkgTokenSpaceGuid.PcdPerformanceEnable == TRUE
   PerformanceLib|MdeModulePkg/Library/SmmPerformanceLib/SmmPerformanceLib.inf
@@ -107,8 +114,10 @@
   ReportStatusCodeLib|MdeModulePkg/Library/RuntimeDxeReportStatusCodeLib/RuntimeDxeReportStatusCodeLib.inf
   BaseCryptLib|CryptoPkg/Library/BaseCryptLib/RuntimeCryptLib.inf
   VariablePolicyLib|MdeModulePkg/Library/VariablePolicyLib/VariablePolicyLibRuntimeDxe.inf
+  NULL|MdeModulePkg/Library/AsanRuntimeLib/AsanRuntimeLib.inf
 
 [LibraryClasses.common.UEFI_APPLICATION]
   ShellLib|ShellPkg/Library/UefiShellLib/UefiShellLib.inf
   FileHandleLib|MdePkg/Library/UefiFileHandleLib/UefiFileHandleLib.inf
   SortLib|MdeModulePkg/Library/UefiSortLib/UefiSortLib.inf
+  NULL|MdeModulePkg/Library/AsanLib/AsanLib.inf
