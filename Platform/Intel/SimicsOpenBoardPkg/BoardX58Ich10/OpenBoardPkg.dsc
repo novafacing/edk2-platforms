@@ -120,6 +120,10 @@
   PlatformCmosAccessLib|BoardModulePkg/Library/PlatformCmosAccessLibNull/PlatformCmosAccessLibNull.inf
   CmosAccessLib|BoardModulePkg/Library/CmosAccessLib/CmosAccessLib.inf
 
+  AsanLib|MdeModulePkg/Library/AsanLib/AsanLib.inf
+  AsanLibNull|MdeModulePkg/Library/AsanLibNull/AsanLibNull.inf
+  AsanPeiLib|MdeModulePkg/Library/AsanPeiLib/AsanPeiLib.inf
+
 [LibraryClasses.common.SEC]
   #######################################
   # Edk2 Packages
